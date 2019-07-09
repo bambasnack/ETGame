@@ -3,11 +3,6 @@ import random
 import pygame as pg
 import pygame
 from box import *
-import sys
-import random
-import pygame as pg
-import pygame
-from box import *
 
 # def get_box(x, y, width, height, color, border_width=-1, border_color=(0, 0, 0)):
 #     surface = pg.Surface((width, height))
@@ -73,7 +68,8 @@ def run():
 
             #clicking doing something
             if click[0] == 1 and action != None:
-                # player button attack
+
+                # player button attack, the while loop doesn't access this for any of the buttons when I this function
                 if action == attack:
                     chance_attack = rand.int(range(1, 10))
                     if chance_attack % 2 == 0:
@@ -92,6 +88,7 @@ def run():
                 if action == range_attack:
                     enemy_energy -= 5
                     return enemy_energy
+
         #hover to change color
         else:
             pygame.draw.rect(screen, ic, (x, y, w, h))
@@ -102,15 +99,15 @@ def run():
         textRect.center = ((x + (w / 2)), (y + (h / 2)))
         screen.blit(textSurf, textRect)
 
-        #to start battle
-        #if action == start_battle:
-            #battle = True
-
     #menu box
     # menu = get_box(10, game_height-110, game_width-20, 100, (255, 255, 255), 20, (0, 0, 0))
     # visible.append(menu)
     while playing:
         screen.fill(bg_color)
+
+        button("Attack", 50, 250, 180, 50, (255,255,255), (152, 245, 255), attack)
+        button("Refresh", 270, 250, 180, 50, white, lighter_blue, refresh)
+        button("Range Attack", 50, 400, 180, 50, white, lighter_blue, range_attack)
 
         # player energy display
         pygame.draw.rect(screen, (0, 255, 0), (100, 80, player_energy, 10))
@@ -119,16 +116,6 @@ def run():
         # enemy energy display
         pygame.draw.rect(screen, (0, 255, 0), (100, 80, enemy_energy, 10))
         pygame.draw.rect(screen, (75, 0, 130), (400, 80, 50, 10))
-
-        #button("Start Battle Now", 180, 300, 200, 50, white, lighter_blue)
-
-        #while battle:
-        #displayed buttons
-        button("Attack", 50, 250, 180, 50, (255,255,255), (152, 245, 255), attack)
-        button("Refresh", 270, 250, 180, 50, white, lighter_blue, refresh)
-        button("Range Attack", 50, 400, 180, 50, white, lighter_blue, range_attack)
-
-        #pygame.display.update()
 
         #handle events
         for event in pg.event.get():
